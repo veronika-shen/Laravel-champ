@@ -9,6 +9,16 @@
 </head>
 <body>
 <h1>Список товаров</h1>
+<form>
+    <select name="category_id" id="category_id">
+        <option value="" disabled selected>Выберите категорию</option>
+
+        @foreach($categories as $category)
+            <option value="{{$category->id}}">{{ $category->name }}</option>
+        @endforeach
+    </select>
+    <input type="submit" value="Отфильтровать">
+</form>
 <a href="{{ route('categories.index') }}">Перейти к списку категорий</a>
 <br>
 <a href="{{route('products.create')}}"><button>Добавить новый товар</button></a>

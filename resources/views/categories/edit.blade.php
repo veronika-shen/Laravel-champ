@@ -11,9 +11,8 @@
 <form action="{{route('categories.update', $category->id)}}" method="post">
     @csrf
     @method('patch')
+    @include('categories.form')
 
-    <input type="text" name="name" id="name" value="{{$category->name}}">
-    <input type="submit" value="Редактировать">
 </form>
 </body>
 </html>

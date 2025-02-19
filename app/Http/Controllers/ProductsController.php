@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Request\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Queries\ProductQuery;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
 class ProductsController extends Controller
 {
-    public function index(){
-        $products = Product::all();
+    public function index(Request $request, ProductQuery $productQuery) {
+        $products = $productQuery->filter($request->get('category_id'));
 
         return view('products.index', [
             'products' => $products,
+            'categories' => Category::all(),
         ]);
     }
 
@@ -56,5 +59,4 @@ class ProductsController extends Controller
         $product->delete();
         return redirect()->route('products.index');
     }
-
 }

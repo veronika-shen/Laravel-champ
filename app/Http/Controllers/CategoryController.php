@@ -38,7 +38,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(CategoryRequest $request, Category $category): \Illuminate\Http\RedirectResponse
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
         $validate = $request->validated();
         $category->update($validate);

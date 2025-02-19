@@ -2,9 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\http\Request;
 use Illuminate\Database\Eloquent\Model;
+use mysql_xdevapi\Collection;
 
-class product extends Model
+/**
+ * @property int $id
+ * @property string $name
+ * @property int $price
+ * @property Collection<Category> $category
+ */
+
+class Product extends Model
 {
     protected $fillable = [
         'name', 'price', 'category_id'
@@ -12,5 +21,15 @@ class product extends Model
 
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+
+    public static function filter(Request $request){
+        $query = Product::query();
+
+        if($request->has('category_id') && $request->category_id !== 'all'){
+            $query->where('category_id', $request->category_id);
+        }
+
+        return $query->get();
     }
 }

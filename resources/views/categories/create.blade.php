@@ -10,8 +10,7 @@
 <body>
 <form action="{{route('categories.store')}}" method="post">
     @csrf
-    <input type="text" name="name" id="name" placeholder="Наименование" required>
-    <input type="submit" value="Добавить новую категорию">
+    @include('categories.form')
 </form>
 </body>
 </html>
