@@ -8,6 +8,7 @@
     <title>Главная</title>
 </head>
 <body>
+@include('header')
 <h1>Список товаров</h1>
 <form>
     <select name="category_id" id="category_id">
@@ -21,7 +22,9 @@
 </form>
 <a href="{{ route('categories.index') }}">Перейти к списку категорий</a>
 <br>
+@auth
 <a href="{{route('products.create')}}"><button>Добавить новый товар</button></a>
+@endauth
 <table>
     <thead>
     <tr>
@@ -38,16 +41,19 @@
             <td>{{ $product->name }}</td>
             <td>{{ $product->price }}</td>
             <td>{{ $product->category->name }}</td>
-            <td><a href="{{route('products.edit', $product->id)}}">Редактировать</a></td>
             <td><a href="{{route('products.show', $product->id)}}">Подробнее</a></td>
+        @auth
+            <td><a href="{{route('products.edit', $product->id)}}">Редактировать</a></td>
             <td><form action="{{route('products.destroy', $product->id)}}" method="post">
                     @csrf
                     @method('delete')
                     <input type="submit" value="Удалить">
                 </form></td>
+            @endauth
         </tr>
     @endforeach
     </tbody>
 </table>
+
 </body>
 </html>

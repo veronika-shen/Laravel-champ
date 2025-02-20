@@ -8,10 +8,10 @@
     <title>Регистрация</title>
 </head>
 <body>
-<form action="{{route('register')}}" method="post">
+<form action="{{route('registerCreate')}}" method="post">
     @csrf
     <input type="text" name="name" placeholder="Имя" required>
-    <input type="email" name="email" placeholder="Электронная почта" required>
+    <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="password" placeholder="Пароль" required>
     <input type="submit" value="Зарегистрироваться">
 </form>

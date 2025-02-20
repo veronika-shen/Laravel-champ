@@ -8,9 +8,12 @@
     <title>Главная</title>
 </head>
 <body>
+@include('header')
 <h1>Категории</h1>
 <a href="{{route('products.index')}}">Перейти к списку товаров</a>
+@auth
 <a href="{{route('categories.create')}}"><button>Добавить новую категорию</button></a>
+@endauth
 <table>
     <thead>
     <tr>
@@ -23,14 +26,16 @@
         <tr>
             <td>{{ $category->id }}</td>
             <td>{{ $category->name }}</td>
-            <td><a href="{{route('categories.edit', $category->id)}}">Редактировать</a></td>
             <td><a href="{{route('categories.show', $category->id)}}">Подробнее</a></td>
+        @auth
+            <td><a href="{{route('categories.edit', $category->id)}}">Редактировать</a></td>
             <td><form action="{{route('categories.destroy', $category->id)}}" method="post">
                     @csrf
                     @method('delete')
                     <input type="submit" value="Удалить">
                 </form>
             </td>
+            @endauth
         </tr>
     @endforeach
     </tbody>

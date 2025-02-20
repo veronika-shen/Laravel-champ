@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\RegistrController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
@@ -24,8 +24,9 @@ Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->
 Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
-Route::get('/register', [RegistrController::class, 'create'])->middleware('guest')->name('register');
-Route::post('/register', [RegistrController::class, 'store'])->middleware('guest');
+Route::get('/login', [LoginController::class, 'login'])->name('auth.login');
+Route::get('/register', [LoginController::class, 'register'])->name('auth.register');
 
-
-Route::view('/create', 'create')->middleware('auth')->name('create');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
+Route::post('/register', [LoginController::class, 'registerCreate'])->name('registerCreate');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
